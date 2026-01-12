@@ -6,7 +6,7 @@ class grille:
         for i in range(6):
             temp = []
             for j in range(7):
-                temp.append(0)
+                temp.append("#")
             self.grille.append(temp)
     
     def show_game_state(self):
@@ -21,7 +21,7 @@ class grille:
     def check_available(self, col):
         i = 5
         while i >= 0:
-            if self.grille[i][col] == 0:
+            if self.grille[i][col] == "#":
                 return i
             else:
                 i-=1
@@ -46,6 +46,23 @@ class grille:
             if win:
                 print("vous avez gagner")
                 break
+        lines = (((3,0), (2,1), (1,2), (0,3)), 
+                 ((4,0), (3,1), (2,2), (1,3), (0,4)), 
+                 ((5,0), (4,1), (3,2), (2,3), (1,4), (0,5)), 
+                 ((5,1), (4,2), (3,3), (2,4), (1,5), (0,6)), 
+                 ((5,2), (4,3), (3,4), (2,5), (1,6)), 
+                 ((5,3), (4,4), (3,5), (2,6)),
+                 ((2,0), (3,1), (4,2), (5,3)),
+                 ((1,0), (2,1), (3,2), (4,3), (5,4)),
+                 ((0,0), (1,1), (2,2), (3,3), (4,4), (5,5)),
+                 ((0,1), (1,2), (2,3), (3,4), (4,5), (5,6)),
+                 ((0,2), (1,3), (2,4), (3,5), (4,6)),
+                 ((0,3), (1,4), (2,5), (3,6)))
+        for i in lines:
+            win = self.check_diag(i)
+            if win:
+                print("vous avez gagner")
+                break
 
 
     def check_row(self, row):
@@ -58,6 +75,12 @@ class grille:
         temp = []
         for i in range(len(self.grille)):
             temp.append(self.grille[i][col])
+        return self.check_4(temp)
+
+    def check_diag(self, line):
+        temp = []
+        for coord in line:
+            temp.append(self.grille[coord[0]][coord[1]])
         return self.check_4(temp)
     
     def check_4(self, temp):
@@ -72,16 +95,3 @@ class grille:
 
 
         
-
-#tests
-nouveau = grille()
-nouveau.show_game_state()
-nouveau.play_into_board(0, piece("x"))
-nouveau.play_into_board(0, piece("x"))
-nouveau.play_into_board(0, piece("x"))
-nouveau.play_into_board(0, piece("x"))
-nouveau.play_into_board(0, piece("x"))
-nouveau.play_into_board(0, piece("x"))
-nouveau.play_into_board(0, piece("x"))
-nouveau.show_game_state()
-nouveau.check_win()
