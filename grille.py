@@ -39,13 +39,11 @@ class grille:
         for i in range(len(self.grille)):
             win = self.check_row(i)
             if win:
-                print("vous avez gagner")
-                break
+                return True
         for i in range(len(self.grille[0])):
             win = self.check_col(i)
             if win:
-                print("vous avez gagner")
-                break
+                return True
         lines = (((3,0), (2,1), (1,2), (0,3)), 
                  ((4,0), (3,1), (2,2), (1,3), (0,4)), 
                  ((5,0), (4,1), (3,2), (2,3), (1,4), (0,5)), 
@@ -61,8 +59,7 @@ class grille:
         for i in lines:
             win = self.check_diag(i)
             if win:
-                print("vous avez gagner")
-                break
+                return True
 
 
     def check_row(self, row):
