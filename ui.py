@@ -1,12 +1,14 @@
 from grille import grille
 from piece import piece
+from history import history
 
 def main():
+    previous_games = history()
     while True:
         while True:
-            print("que voulez vous faire?\n1. jouer\n2. quitter\nentrez un chiffre (1 ou 2)")
+            print("que voulez vous faire?\n1. jouer\n2. quitter\n3. voir l'historique\nentrez un chiffre (1 à 3)")
             anwser = int(input())
-            if not (anwser == 1 or anwser == 2):
+            if not (anwser >= 1 or anwser <= 3):
                 print("réponse invalide")
             else:
                 break
@@ -17,15 +19,20 @@ def main():
                 jeu.show_game_state()
                 if jeu.check_win():
                     print("le joueur 1 a gagner")
+                    previous_games.add_game(jeu)
                     break
                 tour_joueur_2(jeu)
                 jeu.show_game_state()
                 if jeu.check_win():
                     print("le joueur 2 a gagner")
+                    previous_games.add_game(jeu)
                     break
-        if anwser == 2:
+        elif anwser == 2:
             print("bye bye")
             break
+        elif anwser == 3:
+            previous_games.show_game()
+
 
 def tour_joueur_1(jeu):
     print("tour au joueur 1")
